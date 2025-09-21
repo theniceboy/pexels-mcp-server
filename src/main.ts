@@ -772,37 +772,6 @@ server.resource(
   }
 );
 
-// Tool to set API key for clients that need to provide their own key
-server.tool(
-  "setApiKey", 
-  { 
-    apiKey: z.string().describe("Your Pexels API key")
-  }, 
-  async ({ apiKey }) => {
-    try {
-      pexelsService.setApiKey(apiKey);
-      
-      return {
-        content: [
-          { 
-            type: "text", 
-            text: "API key set successfully"
-          }
-        ]
-      };
-    } catch (error) {
-      return {
-        content: [
-          { 
-            type: "text", 
-            text: `Error setting API key: ${(error as Error).message}`
-          }
-        ]
-      };
-    }
-  }
-);
-
 // Start receiving messages on stdin and sending messages on stdout
 const transport = new StdioServerTransport();
 await server.connect(transport);
